@@ -85,7 +85,7 @@ const createPdf = async (photos, fileName) => {
 
   // doc.pipe(fs.createWriteStream(`./${fileName}.pdf`));
   for (photo of photos) {
-    const fileLink = await bot.telegram.getFileLink(photo.file_id).href;
+    const fileLink = (await bot.telegram.getFileLink(photo.file_id)).href;
     const response = await axios({
       url: fileLink,
       responseType: "arraybuffer",
