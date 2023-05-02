@@ -75,6 +75,10 @@ bot.action("done", async (ctx) => {
       source: filepath,
       filename: `${fileName}.pdf`,
     });
+    
+    ctx.session.lastReplyId = 0;
+    ctx.session.photos = [];
+    ctx.session.photoCount = 0;
   });
 });
 
