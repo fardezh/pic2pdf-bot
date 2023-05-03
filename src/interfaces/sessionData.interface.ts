@@ -1,7 +1,7 @@
 import { CustomPhoto } from 'src/pic2pdf/types';
 
-export interface SessionData {
+export type SessionData = {
   photos: CustomPhoto[];
-  photoCount: 0;
-  lastReplyId?: 0;
-}
+  photoCount: number;
+  lastReplyId?: number;
+};

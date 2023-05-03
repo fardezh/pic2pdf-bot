@@ -26,8 +26,9 @@ export class Pic2pdfUpdate {
     @Ctx() ctx: BotContext,
     @Message('photo', new PhotoPipe()) photo: CustomPhoto,
   ) {
+    console.log(photo);
     ctx.session.photos.push(photo);
-    ctx.session.photoCount++;
+    // ctx.session.photoCount++;
 
     console.log(ctx.session);
   }
