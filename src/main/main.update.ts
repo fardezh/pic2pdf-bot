@@ -21,13 +21,7 @@ export class MainUpdate {
 
   @Start()
   async onStart(@Ctx() ctx: BotContext): Promise<void> {
-    const starterSessionData: SessionData = {
-      photos: [],
-      photoCount: 0,
-      lastReplyId: 0,
-    };
-
-    ctx.session = starterSessionData;
+    this.emptySession(ctx);
 
     ctx.sendMessage('برام عکس(ها)ت رو بفرس.', {
       reply_to_message_id: ctx.message.message_id,
@@ -37,5 +31,15 @@ export class MainUpdate {
   @Help()
   async onHelp(): Promise<string> {
     return 'عکسایی که میخوای پی‌دی‌اف کنی رو بفرس.\nبقیه‌ش با من😉';
+  }
+
+  private emptySession(ctx: BotContext) {
+    const starterSessionData: SessionData = {
+      photos: [],
+      photoCount: 0,
+      lastReplyId: 0,
+    };
+
+    ctx.session = starterSessionData;
   }
 }

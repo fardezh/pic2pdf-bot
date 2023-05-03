@@ -1,14 +1,4 @@
-import {
-  InjectBot,
-  Update,
-  Start,
-  Help,
-  Command,
-  On,
-  Message,
-  Ctx,
-  Action,
-} from 'nestjs-telegraf';
+import { InjectBot, Update, On, Message, Ctx, Action } from 'nestjs-telegraf';
 import { Bot } from 'src/app.constants';
 import { PhotoPipe } from 'src/common/pipes/photo.pipe';
 import { Telegraf } from 'telegraf';
@@ -55,13 +45,7 @@ export class Pic2pdfUpdate {
 
   @Action('cancel')
   async cancel(@Ctx() ctx: BotContext) {
-    const starterSessionData: SessionData = {
-      photos: [],
-      photoCount: 0,
-      lastReplyId: 0,
-    };
-
-    ctx.session = starterSessionData;
+    this.emptySession(ctx);
     await ctx.editMessageText('حله، خواستی دوباره عکس بفرس برام.');
   }
 
@@ -78,14 +62,22 @@ export class Pic2pdfUpdate {
 
       const photos: CustomPhoto[] = ctx.session.photos;
       const filepath = await this.pic2pdfService.createPdf(photos);
-      // await ctx.replyWithDocument({
-      //   source: filepath,
-      //   filename: `${fileName}.pdf`,
-      // });
+      await ctx.replyWithDocument({
+        source: filepath,
+        filename: `${fileName}.pdf`,
+      });
 
-      ctx.session.lastReplyId = 0;
-      ctx.session.photos = [];
-      ctx.session.photoCount = 0;
+      this.emptySession(ctx);
     });
+  }
+
+  private emptySession(ctx: BotContext) {
+    const starterSessionData: SessionData = {
+      photos: [],
+      photoCount: 0,
+      lastReplyId: 0,
+    };
+
+    ctx.session = starterSessionData;
   }
 }
