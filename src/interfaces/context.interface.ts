@@ -1,4 +1,6 @@
-import { Scenes } from 'telegraf';
+import { Context } from 'telegraf';
+import { SessionData } from './sessionData.interface';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Context extends Scenes.SceneContext {}
+export interface BotContext extends Context {
+  session: SessionData;
+}
