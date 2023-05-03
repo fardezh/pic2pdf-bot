@@ -1,25 +1,3 @@
-// import axios from 'axios';
-
-// const bot = new Telegraf(process.env.BOT_TOKEN);
-
-// bot.use(
-//   session({
-//     defaultSession: () => ({
-//       photos: [],
-//       photoCount: 0,
-//       lastReplyId: 0,
-//     }),
-//   })
-// );
-
-// bot.start(async (ctx) => {
-//   ctx.session.lastReplyId = 0;
-//   ctx.session.photos = [];
-//   ctx.session.photoCount = 0;
-//   ctx.sendMessage("برام عکس(ها)ت رو بفرس.", {
-//     reply_to_message_id: ctx.message.message_id,
-//   });
-// });
 
 // bot.on("photo", async (ctx) => {
 //   const tgPhoto = ctx.update.message.photo[ctx.update.message.photo.length - 1];

@@ -26,10 +26,27 @@ export class Pic2pdfUpdate {
     @Ctx() ctx: BotContext,
     @Message('photo', new PhotoPipe()) photo: CustomPhoto,
   ) {
-    console.log(photo);
     ctx.session.photos.push(photo);
-    // ctx.session.photoCount++;
+    const photoCount = ++ctx.session.photoCount;
 
-    console.log(ctx.session);
+    ctx
+      .sendMessage(
+        `عکست به فایل اضافه شد. بازم میتونی بفرستی.\nتعداد عکس‌ها: ${photoCount}`,
+        {
+          reply_to_message_id: ctx.message.message_id,
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: 'اوکیه! پی‌دی‌افش کن.', callback_data: 'done' }],
+              [{ text: 'بیخیال نمیخوام.', callback_data: 'cancel' }],
+            ],
+          },
+        },
+      )
+      .then((message) => {
+        if (ctx.session.lastReplyId) {
+          ctx.deleteMessage(ctx.session.lastReplyId);
+        }
+        ctx.session.lastReplyId = message.message_id;
+      });
   }
 }
